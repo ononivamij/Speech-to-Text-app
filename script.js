@@ -25,8 +25,9 @@ function setupRecognition(recognition){
     recognition.onresult = function(event){
 
         //ProcessResult()
-
+        const {finalTranscript,interTranscript} =
         processResult(event.results);
+        resultElement.innerHTML = finalTranscript + interTranscript;
 
     }
 
@@ -44,10 +45,19 @@ function processResult(results){
         let transcript = results[1][0].transcript;
         transcript.replace("\n","<br>");
 
-        
+        if(results[i].isFinal){
+
+            finalTranscript += transcript;
+
+        }else{
+
+            interTranscript += transcript;
+
+        }
+
 
     }
-
+    return{finalTranscript, interTranscript}
 
 }
 
